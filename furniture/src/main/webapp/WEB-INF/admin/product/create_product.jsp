@@ -30,18 +30,34 @@
         <!-- Navbar End -->
 
         <c:if test="${!requestScope.errors.isEmpty()&&requestScope.errors!=null }">
-            <div class="alert alert-warning" role="alert">
-                <c:forEach items="${requestScope.errors}" var="item">
-                    ${item} <br>
-                </c:forEach>
+            <c:forEach items="${requestScope.errors}" var="item">
+                <div class="alert alert-warning" role="alert">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span
+                                class="mdi mdi-close" aria-hidden="true"></span></button>
+                        <div class="icon"><span class="mdi mdi-close-circle-o"></span></div>
+                        <div class="message">
+                            <span>Error!</span>
+                                ${item}
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </c:if>
+
+
+        <c:if test="${requestScope.message!=null}">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span
+                        class="mdi mdi-close" aria-hidden="true"></span></button>
+                <div class="icon"><span class="mdi mdi-check"></span></div>
+                <div class="message">
+                    <strong><i class="fa-solid fa-check"></i></strong>
+                        ${requestScope.message}
+                </div>
             </div>
         </c:if>
 
-        <c:if test="${requestScope.message!=null}">
-            <%
-                String sMessage = request.getAttribute("message").toString();
-            %>
-        </c:if>
         <!-- Form Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="row g-4">
@@ -49,9 +65,9 @@
                     <div class="bg-light rounded h-100 p-4">
                         <h6 class="mb-4">ADD PRODUCT</h6>
                         <form action="" method="post">
-<%--                            <c:if test="${requestScope.product != null}">--%>
-<%--                                <input type="hidden" name="id" value="<c:out value='${product.getId()}' />"/>--%>
-<%--                            </c:if>--%>
+                            <c:if test="${requestScope.product != null}">
+                                <input type="hidden" name="id" value="<c:out value='${product.getId()}' />"/>
+                            </c:if>
                             <div class="mb-3">
                                 <label for="" class="form-label">Product Name</label>
                                 <input type="text" class="form-control" name="name" id="name" value="${requestScope.product.getName()}"  placeholder="Enter name product">
@@ -60,13 +76,13 @@
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Quantity</label>
-                                <input min="0" type="number" name="quantity" id="quantity" value="${requestScope.product.getQuantity()}" class="form-control" placeholder="Enter quantity">
+                                <input min="0" type="number" name="quantity" id="quantity" value="${requestScope.product.getQuantity()}" class="form-control" placeholder="Enter quantity &  1 -100">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Price</label>
-                                <input min="100000"  type="number" name="price" id="price" value="${requestScope.product.getPrice()}" class="form-control" placeholder="Enter Price">
+                                <input min="100000"  type="number" name="price" id="price" value="${requestScope.product.getPrice()}" class="form-control" placeholder="Enter Price & > 100000">
                                 <div id="" class="form-text">
                                 </div>
                             </div>
@@ -95,11 +111,11 @@
                                 <div class="form-text">
                                 </div>
                             </div>
-                            <div style="display: flex" >
-                                <button type="submit" class="btn btn-primary">Create</button>
+                            <div style="display: flex; padding: 10px" >
+                                <div><button type="submit" class="btn btn-primary">Create</button></div>
                                 <div class="btn-group">
-                                    <a href="/product" title="Exit" class="btn btn-outline-info" style="color: black; font-weight: bold">
-                                        <i class="glyphicon glyphicon-floppy-disk" aria-hidden="true" ></i> Exit
+                                    <a href="/product" title="Exit" class="btn btn-outline-warning" style="color: black; font-weight: bold">
+                                        <i class="glyphicon glyphicon-floppy-disk " aria-hidden="true" ></i> Exit
                                     </a>
                                 </div>
                             </div>

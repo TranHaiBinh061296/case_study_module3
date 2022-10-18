@@ -49,6 +49,8 @@ public class ProductServlet extends HttpServlet {
                 case "delete":
                     showDeleteProduct(req, resp);
                     break;
+                case "view":
+
                 default:
                     listProductPage(req, resp);
                     break;
@@ -62,14 +64,14 @@ public class ProductServlet extends HttpServlet {
 
     private void listProductPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int page = 1;
-        int recordsPerPage = 3;
+        int recordsPerPage = 4;
         String q = "";
         int idcategory = -1;
         if (req.getParameter("q") != null) {
             q = req.getParameter("q");
         }
         if (req.getParameter("idcategory") != null) {
-            idcategory = Integer.parseInt(req.getParameter("category_id"));
+            idcategory = Integer.parseInt(req.getParameter("idcategory"));
         }
         if (req.getParameter("page") != null)
             page = Integer.parseInt(req.getParameter("page"));
@@ -260,6 +262,7 @@ public class ProductServlet extends HttpServlet {
                 if (iProductDAO.checkNameExits(name)) {
                     req.setAttribute("product", product);
                     errors.add("Name Product is exists !!!");
+                    req.setAttribute("errors", "Same product name");
                 } else {
                     iProductDAO.insertProduct(product);
                     req.setAttribute("message", "Insert success!!.....");
@@ -274,18 +277,6 @@ public class ProductServlet extends HttpServlet {
         }
 
     }
-
-
-//        String name = req.getParameter("name");
-//        int quantity = Integer.valueOf(req.getParameter("quantity"));
-//        int price = Integer.parseInt(req.getParameter("price"));
-//        String image = req.getParameter("image");
-//        String description = req.getParameter("description");
-//        int idcategory = Integer.parseInt(req.getParameter("idcategory"));
-//        Product newProduct = new Product(name, quantity,price,image,description,idcategory);
-//        iProductDAO.insertProduct(newProduct);
-//        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/admin/product/create_product.jsp");
-//        dispatcher.forward(req, resp);
 
 
     @Override

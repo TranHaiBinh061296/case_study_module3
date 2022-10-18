@@ -1,5 +1,6 @@
 package com.codegym.furniture.view;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
@@ -52,6 +53,7 @@ public class Product {
         this.name = name;
     }
 @Min(1)
+@Max(100)
     public int getQuantity() {
         return quantity;
     }
@@ -60,6 +62,7 @@ public class Product {
         this.quantity = quantity;
     }
 @Min(100000)
+@Max(1000000000)
     public int getPrice() {
         return price;
     }
