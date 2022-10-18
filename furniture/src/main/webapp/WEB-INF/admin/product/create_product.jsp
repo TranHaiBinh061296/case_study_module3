@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="vi"><head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>EDIT PRODUCT</title>
     <jsp:include page="/WEB-INF/admin/layout/js_footer.jsp"></jsp:include>
 </head>
 
@@ -29,7 +29,19 @@
         <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp"></jsp:include>
         <!-- Navbar End -->
 
+        <c:if test="${!requestScope.errors.isEmpty()&&requestScope.errors!=null }">
+            <div class="alert alert-warning" role="alert">
+                <c:forEach items="${requestScope.errors}" var="item">
+                    ${item} <br>
+                </c:forEach>
+            </div>
+        </c:if>
 
+        <c:if test="${requestScope.message!=null}">
+            <%
+                String sMessage = request.getAttribute("message").toString();
+            %>
+        </c:if>
         <!-- Form Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="row g-4">
@@ -102,6 +114,12 @@
                              alt="user image"
                              style="width: 100%">
                     </div>
+<%--                    <div class="bg-light rounded h-10 p-4">--%>
+<%--                        <img--%>
+<%--                                src="https://donggia.vn/wp-content/uploads/2018/12/mau-thiet-ke-noi-that-nha-pho-dep-moi-2020-5-1-1024x576.jpg"--%>
+<%--                                alt="user image"--%>
+<%--                                style="width: 100%">--%>
+<%--                    </div>--%>
                 </div>
             </div>
         </div>
@@ -128,5 +146,4 @@
         image.setAttribute("src", image_src);
     }
 </script>
-
 </body></html>

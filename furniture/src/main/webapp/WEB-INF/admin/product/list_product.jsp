@@ -50,12 +50,33 @@
         <div class="col-sm-12 col-xl-6">
 
         </div>
-        <div class="col-sm-12 col-xl-6">
-
+        <div class="col-sm-10 col-xl-7">
+          <a style="font-size: larger" class="btn btn-outline-success" href="/product?action=create" title="create"><i
+                  class="fas fa-plus"></i>
+            Create New Product</a>
         </div>
-        <div class="col-sm-12 col-xl-6">
-          <a href="/product?action=create"
-             class="fa bg-success"> ADD PRODUCT </a>
+        <div class="col-sm-1">
+          <form action="product" style="padding: 5px;">
+            Search: <input placeholder="search" type="text" hint="search" value="${requestScope.q}" name="q"> Category:
+            <select name="category_id" id="">
+
+              <option value="-1">All</option>
+
+              <c:forEach items="${applicationScope.listCategory}" var="category">
+
+                <c:choose>
+                  <c:when test="${category.getId() == requestScope.idcategory}">
+                    <option selected value="${category.getId()}">${category.getName()}</option>
+                  </c:when>
+                  <c:otherwise>
+                    <option value="${category.getId()}">${category.getName()}</option>
+                  </c:otherwise>
+                </c:choose>
+              </c:forEach>
+
+            </select>
+            <button type="get" class="btn btn-primary"><span class="fa fa-search"></span>Search</button>
+          </form>
         </div>
         <div class="col-12">
           <div class="bg-light rounded h-100 p-4">
@@ -81,7 +102,7 @@
                     <td><c:out value="${product.getName()}"/></td>
                     <td><c:out value="${product.getQuantity()}"/></td>
                     <td><fmt:formatNumber value="${product.getPrice()}" type="currency" pattern="#,### ₫"/></td>
-                    <td><img src="${product.getImage()}"  style="width: 90px; height: 90px"></td>
+                    <td><img src="${product.getImage()}"  style="width: 120px; height: 120px"></td>
                     <td>
                       <c:out value="${product.getDescription()}"></c:out>
                     </td>
@@ -96,7 +117,7 @@
                       <a href="/product?action=edit&id=${product.getId()}"
                          class="fas fa-edit"> Edit </a>
                       <a onclick="showMessage(${product.getId()})"
-                         class="fas fa-trash-alt fa-warning">Delete</a>
+                         class="fas btn fa-trash-alt">Delete</a>
                     </td>
                   </tr>
                 </c:forEach>
@@ -107,8 +128,41 @@
         </div>
       </div>
     </div>
-    <!-- Table End -->
 
+    <nav class= col-sm-12 style="display: flex; justify-content: center" aria-label="Page navigation example" style="position: relative; left: 500px;">
+      <ul class="pagination" >
+        <c:if test="${requestScope.currentPage != 1}">
+          <li class="page-item ">
+            <a class="page-link " href="product?page=${requestScope.currentPage - 1}" style="background-color: aquamarine">Previous</a>
+          </li>
+        </c:if>
+
+
+
+        <c:forEach begin="1" end="${noOfPages}" var="i">
+          <c:choose>
+            <c:when test="${requestScope.currentPage eq i}">
+              <li  class="page-item "><a class="page-link" href="product?page=${i}">${i}</a></li>
+            </c:when>
+            <c:otherwise>
+              <li  class="page-item ">
+                <a class="page-link"
+                   href="product?page=${i}">${i}</a> </li>
+            </c:otherwise>
+          </c:choose>
+        </c:forEach>
+
+
+
+
+        <c:if test="${requestScope.currentPage lt requestScope.noOfPages}">
+          <li class="page-item ">
+            <a class="page-link" href="product?page=${requestScope.currentPage + 1}" style="background-color: aquamarine">Next</a>
+          </li>
+        </c:if>
+      </ul>
+    </nav>
+    <!-- Table End -->
 
     <!-- Footer Start -->
     <jsp:include page="/WEB-INF/admin/layout/footer_end.jsp"></jsp:include>

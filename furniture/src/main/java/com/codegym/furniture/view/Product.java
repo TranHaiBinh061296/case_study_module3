@@ -1,5 +1,7 @@
 package com.codegym.furniture.view;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
 
 public class Product {
@@ -41,7 +43,7 @@ public class Product {
     public void setId(int id) {
         this.id = id;
     }
-
+@NotEmpty(message = "Name Product not null")
     public String getName() {
         return name;
     }
@@ -49,7 +51,7 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
-
+@Min(1)
     public int getQuantity() {
         return quantity;
     }
@@ -57,7 +59,7 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
+@Min(100000)
     public int getPrice() {
         return price;
     }

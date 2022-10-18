@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IProductDAO {
+    public int getNoOfRecords();
     public void insertProduct(Product product) throws SQLException;
 
     public Product selectProduct(int id);
@@ -13,6 +14,7 @@ public interface IProductDAO {
     public List<Product> selectAllProducts();
     public boolean deleteProduct(int id) throws SQLException;
     public boolean updateProduct(Product product) throws SQLException;
-    public List<Product> selectProductPagging(int offset, int noOfRecords);
+    public  boolean checkNameExits(String productName);
+    public List<Product> selectAllProductsPaggingFilter(int offset, int noOfRecords, String q, int idcategory);
 
 }

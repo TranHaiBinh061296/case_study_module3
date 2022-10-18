@@ -1,4 +1,4 @@
-package com.codegym.furniture.utf8filter;
+package com.codegym.furniture.utils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

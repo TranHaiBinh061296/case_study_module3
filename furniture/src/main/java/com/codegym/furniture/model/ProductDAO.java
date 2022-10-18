@@ -17,7 +17,17 @@ public class ProductDAO implements IProductDAO {
     private String SELECT_ALL_PRODUCT = "SELECT * FROM products";
     private String SELECT_PRODUCT_BYID = "SELECT id, name, quantity, price, image, description, idcategory FROM products where id = ?";
     private static final String DELETE_PRODUCT_SQL = "DELETE FROM products where id = ?";
-    private static final String UPDATE_PRODUCT_SQL = "UPDATE products SET name = ?,quantity= ?, price = ?, image = ?, description= ?, category = ?  where id = ?;";
+    private static final String UPDATE_PRODUCT_SQL = "UPDATE products SET name = ?,quantity= ?, price = ?, image = ?, description= ?, idcategory = ?  where id = ?";
+    private static final String CHECK_NAME_EXISTS = "SELECT * FROM products where name = ?";
+
+    private int noOfRecords;
+    public int getNoOfRecords() {
+        return noOfRecords;
+    }
+
+    public void setNoOfRecords(int noOfRecords) {
+        this.noOfRecords = noOfRecords;
+    }
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -129,9 +139,79 @@ public class ProductDAO implements IProductDAO {
         return rowUpdate;
     }
 
+
+
+
+
     @Override
-    public List<Product> selectProductPagging(int offset, int noOfRecords) {
-        return null;
+    public boolean checkNameExits(String productName) {
+        try {
+            Connection connection =getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(CHECK_NAME_EXISTS);
+            preparedStatement.setString(1, productName);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        }catch (SQLException ex) {
+          printSQLException(ex);
+        }
+        return false;
+    }
+
+    @Override
+    public List<Product> selectAllProductsPaggingFilter(int offset, int noOfRecords, String q, int idcategory) {
+        List<Product> listProduct = new ArrayList<>();
+        Product product = null;
+        PreparedStatement stmt = null;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            if (idcategory != -1) {
+                String query = "select SQL_CALC_FOUND_ROWS * from products where name like ? and category_id = ? limit "
+                        + offset + ", " + noOfRecords;
+                stmt = connection.prepareStatement(query);
+                stmt.setString(1, '%' + q + '%');
+                stmt.setInt(2, idcategory);
+            } else {
+                if (idcategory == -1) {
+                    String query = "select SQL_CALC_FOUND_ROWS * from products where name like ? limit "
+                            + offset + ", " + noOfRecords;
+                    stmt = connection.prepareStatement(query);
+                    stmt.setString(1, '%' + q + '%');
+                }
+            }
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setPrice(rs.getInt("price"));
+                product.setImage(rs.getString("image"));
+                product.setDescription(rs.getString("description"));
+                product.setIdcategory(rs.getInt("idcategory"));
+                listProduct.add(product);
+            }
+            rs.close();
+
+            rs = stmt.executeQuery("SELECT FOUND_ROWS()");
+            if (rs.next())
+                this.noOfRecords = rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null)
+                    stmt.close();
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listProduct;
     }
 
     private void printSQLException(SQLException ex) {
