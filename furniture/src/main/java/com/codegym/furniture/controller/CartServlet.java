@@ -23,6 +23,7 @@ public class CartServlet extends HttpServlet {
                 break;
             default:
                 showCartCheckoutPage(req, resp);
+                break;
 
         }
 

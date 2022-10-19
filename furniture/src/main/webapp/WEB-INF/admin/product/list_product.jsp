@@ -44,11 +44,11 @@
         <!-- Table Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="row g-4">
-                <div class="col-sm-10 col-xl-7">
-                    <a style="font-size: larger" class="btn btn-outline-success" href="/product?action=create"
-                       title="create"><i class="fa-solid fa-square-plus"></i>
-                        Create Product</a>
-                </div>
+<%--                <div class="col-sm-10 col-xl-7">--%>
+<%--                    <a style="font-size: larger" class="btn btn-outline-success" href="/product?action=create"--%>
+<%--                       title="create"><i class="fa-solid fa-square-plus"></i>--%>
+<%--                        Create Product</a>--%>
+<%--                </div>--%>
                 <div class="col-sm-6">
                     <form action="/product" method="get" class="form-horizontal form-group row">
                         <div class="col-5" style="padding-right: 5px">
@@ -109,11 +109,11 @@
                                         </td>
                                         <td>
                                             <a href="/product?action=edit&id=${product.getId()}"><i
-                                                    class="btn btn-outline-warning fa-regular fa-pen-to-square"></i>Edit
+                                                    class="btn btn-outline-warning fa-regular fa-pen-to-square"></i>
                                             </a>
                                         </td>
                                         <td><a onclick="showMessage(${product.getId()})"><i
-                                                class="btn-outline-danger btn fa-solid fa-trash-can"></i>Delete</a></td>
+                                                class="btn-outline-danger btn fa-solid fa-trash-can"></i></a></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -182,7 +182,8 @@
      theme_color="#0084ff">
 </div>
 <div id="_zalo" style="position: FIXED; Z-INDEX: 99999; BOTTOM: 15px; left: 21px;">
-    <a href="https://zalo.me/0969455420" target="_blank" alt="chat zalo"><img  src="https://stc.sp.zdn.vn/chatwidget/images/stick_zalo.png" alt="zalo" title="zalo"></a>
+    <a href="https://zalo.me/0969455420" target="_blank" alt="chat zalo"><img
+            src="https://stc.sp.zdn.vn/chatwidget/images/stick_zalo.png" alt="zalo" title="zalo"></a>
 </div>
 <!-- JavaScript Libraries -->
 <jsp:include page="/WEB-INF/admin/layout/js_end.jsp"></jsp:include>

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html lang="vi"><head>
+<html lang="vi">
+<head>
     <meta charset="utf-8">
     <title>EDIT PRODUCT</title>
     <jsp:include page="/WEB-INF/admin/layout/js_footer.jsp"></jsp:include>
@@ -10,7 +11,8 @@
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
     <!-- Spinner Start -->
-    <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner"
+         class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -76,26 +78,31 @@
                             </c:if>
                             <div class="mb-3">
                                 <label for="" class="form-label">Product Name</label>
-                                <input type="text" class="form-control" name="name" id="name" value="${requestScope.product.getName()}"  placeholder="Enter name product">
-                                <div  class="form-text">
+                                <input type="text" class="form-control" name="name" id="name"
+                                       value="${requestScope.product.getName()}" placeholder="Enter name product">
+                                <div class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Quantity</label>
-                                <input min="0" type="number" name="quantity" id="quantity" value="${requestScope.product.getQuantity()}" class="form-control" placeholder="Enter quantity &  1 -100">
-                                <div  class="form-text">
+                                <input min="0" type="number" name="quantity" id="quantity"
+                                       value="${requestScope.product.getQuantity()}" class="form-control"
+                                       placeholder="Enter quantity &  1 -100">
+                                <div class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Price</label>
-                                <input min="100000"  type="number" name="price" id="price" value="${requestScope.product.getPrice()}" class="form-control" placeholder="Enter Price & > 100000">
+                                <input min="100000" type="number" name="price" id="price"
+                                       value="${requestScope.product.getPrice()}" class="form-control"
+                                       placeholder="Enter Price & > 100000">
                                 <div id="" class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Image</label>
                                 <input class="form-control" id="image" type="text" name="image"
-                                       placeholder="Nhập hình ảnh"
+                                       placeholder="Insert image"
                                        onchange="chooseFile()"
                                        value="${requestScope.product.getImage()}">
                                 <div class="form-text">
@@ -103,7 +110,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Description</label>
-                                <input type="text" class="form-control" name="description" id="description" value="${requestScope.product.description}">
+                                <input type="text" class="form-control" name="description" id="description"
+                                       value="${requestScope.product.description}">
                                 <div class="form-text">
                                 </div>
                             </div>
@@ -117,12 +125,14 @@
                                 <div class="form-text">
                                 </div>
                             </div>
-                            <div style="display: flex; padding: 10px" >
-                                <div><button type="submit" class="btn btn-primary" >Create</button></div>
+                            <div style="display: flex; padding: 10px">
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                </div>
 
                                 <div class="btn-group">
-                                    <a href="/product" title="Exit" class="btn btn-outline-warning" style="color: black; font-weight: bold">
-                                        <i class="glyphicon glyphicon-floppy-disk " aria-hidden="true" ></i> Exit
+                                    <a href="/product" title="Exit">
+                                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                     </a>
                                 </div>
                             </div>
@@ -137,12 +147,12 @@
                              alt="user image"
                              style="width: 100%">
                     </div>
-<%--                    <div class="bg-light rounded h-10 p-4">--%>
-<%--                        <img--%>
-<%--                                src="https://donggia.vn/wp-content/uploads/2018/12/mau-thiet-ke-noi-that-nha-pho-dep-moi-2020-5-1-1024x576.jpg"--%>
-<%--                                alt="user image"--%>
-<%--                                style="width: 100%">--%>
-<%--                    </div>--%>
+                    <%--                    <div class="bg-light rounded h-10 p-4">--%>
+                    <%--                        <img--%>
+                    <%--                                src="https://donggia.vn/wp-content/uploads/2018/12/mau-thiet-ke-noi-that-nha-pho-dep-moi-2020-5-1-1024x576.jpg"--%>
+                    <%--                                alt="user image"--%>
+                    <%--                                style="width: 100%">--%>
+                    <%--                    </div>--%>
                 </div>
             </div>
         </div>
@@ -157,7 +167,8 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="display: none;"><i class="bi bi-arrow-up"></i></a>
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="display: none;"><i
+            class="bi bi-arrow-up"></i></a>
 </div>
 
 <!-- JavaScript Libraries -->
@@ -169,4 +180,5 @@
         image.setAttribute("src", image_src);
     }
 </script>
-</body></html>
+</body>
+</html>

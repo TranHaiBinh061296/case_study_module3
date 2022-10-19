@@ -13,5 +13,6 @@ public interface IUserDAO {
     boolean deleteUser (int id) throws SQLException;
     boolean existsByUser(String userName);
     public User getLogin(String username ) throws SQLException;
+    public boolean checkUserNamePassword(String username, String password);
 }
 

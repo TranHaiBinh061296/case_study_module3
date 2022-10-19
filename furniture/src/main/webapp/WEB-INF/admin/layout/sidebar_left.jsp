@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="navbar-nav w-100">
-            <a href="/view" class="nav-item nav-link active">Home</a>
+            <a href="/logout" class="nav-item nav-link active">Home</a>
             <div class="nav-item dropdown">
 
                 <div class="dropdown-menu bg-transparent border-0">
@@ -25,24 +25,18 @@
             </div>
         </div>
         <div class="navbar-nav w-100">
-            <a href="/users" class="nav-item nav-link active">User Management</a>
             <div class="nav-item dropdown">
-
+                <a href="/product?action=view" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Products</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="button.html" class="dropdown-item">Buttons</a>
-                    <a href="typography.html" class="dropdown-item">Typography</a>
-                    <a href="element.html" class="dropdown-item">Other Elements</a>
+                        <a href="/product?action=create" class="dropdown-item">Add new products</a>
+                    <a href="/product?action=edits" class="dropdown-item">Edit product</a>
                 </div>
             </div>
-        </div>
-        <div class="navbar-nav w-100">
-            <a href="/product" class="nav-item nav-link active">Product Management</a>
             <div class="nav-item dropdown">
-
+                <a href="/users" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Users</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="button.html" class="dropdown-item">Buttons</a>
-                    <a href="typography.html" class="dropdown-item">Typography</a>
-                    <a href="element.html" class="dropdown-item">Other Elements</a>
+                    <a href="signin.html" class="dropdown-item">Sign In</a>
+                    <a href="signup.html" class="dropdown-item">Sign Up</a>
                 </div>
             </div>
         </div>

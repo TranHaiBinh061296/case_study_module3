@@ -13,7 +13,7 @@ public interface IProductDAO {
 
     public List<Product> selectAllProducts();
     public boolean deleteProduct(int id) throws SQLException;
-    public boolean updateProduct(Product product) throws SQLException;
+    public void updateProduct(Product product) throws SQLException;
     public  boolean checkNameExits(String productName);
     public List<Product> selectAllProductsPaggingFilter(int offset, int noOfRecords, String q, int idcategory);
 

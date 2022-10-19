@@ -105,12 +105,12 @@
                                             </c:forEach>
                                         </td>
                                         <td>
-                                            <a href="/users?action=edit&id=${requestScope.user.getId()}"><i
+                                            <a href="/users?action=edit&id=${user.getId()}"><i
                                                     class="btn btn-outline-warning fa-regular fa-pen-to-square"></i>
                                             </a>
                                         </td>
                                         <td><a onclick="showMessage(${user.getId()})"><i
-                                                class="btn-outline-danger btn fa-solid fa-trash-can"></i>Delete</a></td>
+                                                class="btn-outline-danger btn fa-solid fa-trash-can"></i></a></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

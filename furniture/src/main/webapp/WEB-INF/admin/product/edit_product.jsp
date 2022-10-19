@@ -141,7 +141,7 @@
                                 <div>
                                     <a href="/product" title="Exit" class="btn btn-outline-warning"
                                        style="color: black; font-weight: bold; margin-top: 10px">
-                                        <i class="fa-solid fa-right-from-bracket btn-outline-warning">Exit</i>
+                                        <i class="fa-solid fa-right-from-bracket btn-outline-warning"></i>
                                     </a>
                                 </div>
                             </div>

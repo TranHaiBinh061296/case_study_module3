@@ -122,8 +122,8 @@ public class ProductDAO implements IProductDAO {
     }
 
     @Override
-    public boolean updateProduct(Product product) throws SQLException {
-        boolean rowUpdate;
+    public void updateProduct(Product product) throws SQLException {
+
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PRODUCT_SQL);
         ) {
@@ -134,9 +134,8 @@ public class ProductDAO implements IProductDAO {
             preparedStatement.setString(5,product.getDescription());
             preparedStatement.setInt(6,product.getIdcategory());
             preparedStatement.setInt(7, product.getId());
-            rowUpdate = preparedStatement.executeUpdate() > 0;
+            preparedStatement.executeUpdate();
         }
-        return rowUpdate;
     }
 
 

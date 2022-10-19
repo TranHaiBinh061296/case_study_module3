@@ -70,7 +70,7 @@ public class UserServlet extends HttpServlet {
 
     private void showEditForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = new User();
-        req.setAttribute("user", user);
+
         int id = Integer.parseInt(req.getParameter("id"));
         User existingUser = iUserDAO.selectUser(id);
         req.setAttribute("user", existingUser);

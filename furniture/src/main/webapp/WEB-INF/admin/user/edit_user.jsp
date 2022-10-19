@@ -83,42 +83,42 @@
                             <div class="mb-3">
                                 <label for="" class="form-label"> UserName</label>
                                 <input type="text" class="form-control" name="username" id="username"
-                                       value="<c:out value="${requestScope.user.getUsername()}"/> ">
+                                       value="<c:out value="${user.getUsername()}"/> ">
                                 <div class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Password</label>
                                 <input min="0" type="number" name="password" id="password"
-                                       value="<c:out value="${requestScope.user.getPassword()}"/>" class="form-control">
+                                       value="<c:out value="${user.getPassword()}"/>" class="form-control">
                                 <div class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Full Name</label>
                                 <input  type="number" name="fullname" id="fullname"
-                                       value="<c:out value="${requestScope.user.getFullname()}"/>" class="form-control">
+                                       value="<c:out value="${user.getFullname()}"/>" class="form-control">
                                 <div id="" class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Phone</label>
                                 <input  type="number" name="phone" id="phone"
-                                       value="<c:out value="${requestScope.user.getPhone()}"/>" class="form-control">
+                                       value="<c:out value="${user.getPhone()}"/>" class="form-control">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Email</label>
                                 <input  type="number" name="email" id="email"
-                                        value="<c:out value="${requestScope.user.getEmail()}"/>" class="form-control">
+                                        value="<c:out value="${user.getEmail()}"/>" class="form-control">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Address</label>
                                 <input  type="number" name="address" id="address"
-                                        value="<c:out value="${requestScope.user.getAddress()}"/>" class="form-control">
+                                        value="<c:out value="${user.getAddress()}"/>" class="form-control">
                                 <div  class="form-text">
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                                 <input class="form-control" id="image" type="text" name="image"
                                        placeholder="Enter image"
                                        onchange="chooseFile()"
-                                       value="<c:out value="${requestScope.user.getImage()}"/>">
+                                       value="<c:out value="${user.getImage()}"/>">
                                 <div class="form-text">
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                                 <label for="" class="form-label">Role</label>
                                 <select name="idrole">
                                     <c:forEach items="${listRole}" var="role">
-                                        <option value="${role.getId()}">${role.getName()}</option>
+                                        <option value="${role.getId()}">${role.getRole()}</option>
                                     </c:forEach>
                                 </select>
                                 <div class="form-text">
@@ -145,9 +145,9 @@
                             <div style="display: flex" >
                                 <button type="submit" class="btn btn-outline-success" style="margin: 10px" title="Cập nhật">Update</button>
                                 <div>
-                                    <a href="/users" title="Exit" class="btn btn-outline-warning"
+                                    <a href="/users" title="Exit" class="btn-outline-warning"
                                        style="color: black; font-weight: bold; margin-top: 10px">
-                                        <i class="fa-solid fa-right-from-bracket btn-outline-warning">Exit</i>
+                                        <i class="fa-solid fa-right-from-bracket btn-outline-warning"></i>
                                     </a>
                                 </div>
                             </div>

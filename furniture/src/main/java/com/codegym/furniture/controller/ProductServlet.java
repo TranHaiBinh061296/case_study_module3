@@ -49,6 +49,12 @@ public class ProductServlet extends HttpServlet {
                 case "delete":
                     showDeleteProduct(req, resp);
                     break;
+                case "view":
+                    showList(req,resp);
+                    break;
+                case "edits":
+                    listProductPage(req,resp);
+                    break;
                 default:
                     listProductPage(req, resp);
                     break;
@@ -58,6 +64,13 @@ public class ProductServlet extends HttpServlet {
             ex.printStackTrace();
             throw new ServletException(ex);
         }
+    }
+
+    private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Product product = new Product();
+        req.setAttribute("product", product);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/admin/product/list.jsp");
+        dispatcher.forward(req, resp);
     }
 
     private void listProductPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -192,8 +205,8 @@ public class ProductServlet extends HttpServlet {
 //                        errors.add("Invalid category");
 //                        req.setAttribute("errors", errors);
 //                    } else {
-//                        iProductDAO.updateProduct(product);
 //                        req.setAttribute("message", "Update success!!.....");
+//                        iProductDAO.updateProduct(product);
 //                        List<Product> listProduct = iProductDAO.selectAllProducts();
 //                        req.setAttribute("listProduct", listProduct);
 //
@@ -201,11 +214,11 @@ public class ProductServlet extends HttpServlet {
 //                    }
 //                } else {
 //                    if (category == null) {
-//                        errors.add("Mã category không hợp lệ");
+//                        errors.add("Category invalid");
 //                        req.setAttribute("errors", errors);
 //                    }
 //                    req.setAttribute("product", product);
-//                    errors.add("Name product đã tồn tại");
+//                    errors.add("Product name cannot be empty !!!");
 //                    req.setAttribute("errors", errors);
 //                }
 //
@@ -238,22 +251,24 @@ public class ProductServlet extends HttpServlet {
             description = req.getParameter("description");
             int idcategory = Integer.parseInt(req.getParameter("idcategory"));
             if (errors.isEmpty()) {
-                Product newProduct = new Product(name,quantity,price,image,description,idcategory);
+                Product newProduct = new Product(id,name,quantity,price,image,description,idcategory);
                 iProductDAO.updateProduct(newProduct);
                 updateListProduct();
                 req.setAttribute("message", "Edit product successfully!");
                 req.setAttribute("product", newProduct);
 
+
             }
         } catch (NumberFormatException numberFormatException) {
             errors.add("Invalid price or quantity format !!!");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
+            e.printStackTrace();
+        }finally {
             if (req.getAttribute("product") == null)
                 req.setAttribute("product", oldProduct);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/admin/product/edit_product.jsp");
             req.setAttribute("errors", errors);
+
             requestDispatcher.forward(req, resp);
         }
     }

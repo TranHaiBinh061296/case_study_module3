@@ -113,8 +113,8 @@ public class UserDAO implements IUserDAO {
                 String address = rs.getString("address");
                 String image = rs.getString("image");
                 int idrole = rs.getInt("idrole");
-               User user = new User(id, username, password, fullName, phone, email, address, image, idrole);
-               listUser.add(user);
+                User user = new User(id, username, password, fullName, phone, email, address, image, idrole);
+                listUser.add(user);
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -180,7 +180,7 @@ public class UserDAO implements IUserDAO {
 
         try (Connection connection = getConnection();
 
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_USERNAME);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_USERNAME)) {
             preparedStatement.setString(1, username);
             System.out.println(preparedStatement);
 
@@ -201,6 +201,31 @@ public class UserDAO implements IUserDAO {
             printSQLException(e);
         }
         return user;
+    }
+
+    @Override
+    public boolean checkUserNamePassword(String username, String password) {
+        try {
+            Connection connection = getConnection();
+            String query = "select * from users where username = ? and password = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String fullname = rs.getString("fullname");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                String image = rs.getString("image");
+                int idrole = rs.getInt("idrole");
+
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return true;
     }
 
     private void printSQLException(SQLException ex) {
