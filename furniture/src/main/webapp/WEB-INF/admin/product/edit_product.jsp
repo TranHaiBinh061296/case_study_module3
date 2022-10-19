@@ -21,14 +21,20 @@
 
 
     <!-- Sidebar Start -->
-    <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp">
+        <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
+        <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+    </jsp:include>
     <!-- Sidebar End -->
 
 
     <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
-        <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp"></jsp:include>
+        <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp">
+            <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
+            <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+        </jsp:include>
         <!-- Navbar End -->
 
 
@@ -45,23 +51,32 @@
         </div>
         <!-- Sales Chart End -->
         <c:if test="${!requestScope.errors.isEmpty()&&requestScope.errors!=null }">
-            <div class="alert alert-warning" role="alert">
-                <c:forEach items="${requestScope.errors}" var="item">
-                    ${item} <br>
-                </c:forEach>
-            </div>
+            <c:forEach items="${requestScope.errors}" var="item">
+                <div class="alert alert-warning" role="alert">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span
+                                class="mdi mdi-close" aria-hidden="true"></span></button>
+                        <div class="icon"><span class="mdi mdi-close-circle-o"></span></div>
+                        <div class="message">
+                            <span>Error!</span>
+                                ${item}
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
         </c:if>
 
+
         <c:if test="${requestScope.message!=null}">
-            <%
-                String sMessage = request.getAttribute("message").toString();
-            %>
-            <script>
-                let message = '<%= sMessage%>';
-                window.onload = ()=>{
-                    toastr["success"](message)
-                }
-            </script>
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span
+                        class="mdi mdi-close" aria-hidden="true"></span></button>
+                <div class="icon"><span class="mdi mdi-check"></span></div>
+                <div class="message">
+                    <strong><i class="fa-solid fa-check"></i></strong>
+                        ${requestScope.message}
+                </div>
+            </div>
         </c:if>
 
         <!-- Recent Sales Start -->

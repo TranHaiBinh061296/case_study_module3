@@ -49,8 +49,6 @@ public class ProductServlet extends HttpServlet {
                 case "delete":
                     showDeleteProduct(req, resp);
                     break;
-                case "view":
-
                 default:
                     listProductPage(req, resp);
                     break;
@@ -154,71 +152,109 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void editProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        List<String> errors = new ArrayList<>();
+//        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/admin/product/edit_product.jsp");
+//        Product product = new Product();
+//        try {
+//            int id = Integer.parseInt(req.getParameter("id").trim());
+//            String name = req.getParameter("name").trim();
+//            int quantity = Integer.parseInt(req.getParameter("quantity").trim());
+//            int price = Integer.parseInt(req.getParameter("price").trim());
+//            String image = req.getParameter("image").trim();
+//            String description = req.getParameter("description").trim();
+//            int idcategory = Integer.parseInt(req.getParameter("idcategory"));
+//
+//            product = iProductDAO.selectProduct(id);
+//            boolean checkName = false;
+//            if (product.getName().equals(name)) {
+//                checkName = true;
+//            }
+//            product.setName(name);
+//            product.setQuantity(quantity);
+//            product.setPrice(price);
+//            product.setImage(image);
+//            product.setDescription(description);
+//            product.setIdcategory(idcategory);
+//            ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+//            Validator validator = validatorFactory.getValidator();
+//            Set<ConstraintViolation<Product>> constraintViolations = validator.validate(product);
+//            if (!constraintViolations.isEmpty()) {
+//                for (ConstraintViolation<Product> constraintViolation : constraintViolations) {
+//                    errors.add(constraintViolation.getMessage());
+//                }
+//                req.setAttribute("product", product);
+//                req.setAttribute("errors", errors);
+//            } else {
+//                Category category = iCategoryDAO.selectCategory(idcategory);
+//                boolean isNameValid = (checkName == true || !iProductDAO.checkNameExits(product.getName()));
+//                if (isNameValid) {
+//                    if (category == null) {
+//                        errors.add("Invalid category");
+//                        req.setAttribute("errors", errors);
+//                    } else {
+//                        iProductDAO.updateProduct(product);
+//                        req.setAttribute("message", "Update success!!.....");
+//                        List<Product> listProduct = iProductDAO.selectAllProducts();
+//                        req.setAttribute("listProduct", listProduct);
+//
+//                        dispatcher = req.getRequestDispatcher("/WEB-INF/admin/product/list_product.jsp");
+//                    }
+//                } else {
+//                    if (category == null) {
+//                        errors.add("Mã category không hợp lệ");
+//                        req.setAttribute("errors", errors);
+//                    }
+//                    req.setAttribute("product", product);
+//                    errors.add("Name product đã tồn tại");
+//                    req.setAttribute("errors", errors);
+//                }
+//
+//            }
+//            dispatcher.forward(req, resp);
+//        } catch (NumberFormatException | SQLException numberFormatException) {
+//            //
+//            errors.add("Định dạng của category không hợp lệ");
+//            req.setAttribute("errors", errors);
+//            req.setAttribute("product", product);
+//            dispatcher.forward(req, resp);
+//        }
+        String name, description, image;
+        int price;
+        int quantity;
         List<String> errors = new ArrayList<>();
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/admin/product/edit_product.jsp");
-        Product product = new Product();
+        int id = Integer.parseInt(req.getParameter("id"));
+        Product oldProduct = iProductDAO.selectProduct(id);
         try {
-            int id = Integer.parseInt(req.getParameter("id").trim());
-            String name = req.getParameter("name").trim();
-            int quantity = Integer.parseInt(req.getParameter("quantity").trim());
-            int price = Integer.parseInt(req.getParameter("price").trim());
-            String image = req.getParameter("image").trim();
-            String description = req.getParameter("description").trim();
+            name = req.getParameter("name");
+            if (!oldProduct.getName().equals(name)) {
+                if (iProductDAO.checkNameExits(name)) {
+                    errors.add(" Product already exists ! ! !");
+                }
+            }
+            if (name.trim().equals("")) errors.add("Product name cannot be empty !!!");
+            quantity = Integer.parseInt(req.getParameter("quantity"));
+            price = Integer.parseInt((req.getParameter("price")));
+            image = req.getParameter("image");
+            description = req.getParameter("description");
             int idcategory = Integer.parseInt(req.getParameter("idcategory"));
-
-            product = iProductDAO.selectProduct(id);
-            boolean checkName = false;
-            if (product.getName().equals(name)) {
-                checkName = true;
-            }
-            product.setName(name);
-            product.setQuantity(quantity);
-            product.setPrice(price);
-            product.setImage(image);
-            product.setDescription(description);
-            product.setIdcategory(idcategory);
-            ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-            Validator validator = validatorFactory.getValidator();
-            Set<ConstraintViolation<Product>> constraintViolations = validator.validate(product);
-            if (!constraintViolations.isEmpty()) {
-                for (ConstraintViolation<Product> constraintViolation : constraintViolations) {
-                    errors.add(constraintViolation.getMessage());
-                }
-                req.setAttribute("product", product);
-                req.setAttribute("errors", errors);
-            } else {
-                Category category = iCategoryDAO.selectCategory(idcategory);
-                boolean isNameValid = (checkName == true || !iProductDAO.checkNameExits(product.getName()));
-                if (isNameValid) {
-                    if (category == null) {
-                        errors.add("Invalid category");
-                        req.setAttribute("errors", errors);
-                    } else {
-                        iProductDAO.updateProduct(product);
-                        req.setAttribute("message", "Update success!!.....");
-                        List<Product> listProduct = iProductDAO.selectAllProducts();
-                        req.setAttribute("listProduct", listProduct);
-
-                        dispatcher = req.getRequestDispatcher("/WEB-INF/admin/product/list_product.jsp");
-                    }
-                } else {
-                    if (category == null) {
-                        errors.add("Mã category không hợp lệ");
-                        req.setAttribute("errors", errors);
-                    }
-                    req.setAttribute("product", product);
-                    errors.add("Name product đã tồn tại");
-                    req.setAttribute("errors", errors);
-                }
+            if (errors.isEmpty()) {
+                Product newProduct = new Product(name,quantity,price,image,description,idcategory);
+                iProductDAO.updateProduct(newProduct);
+                updateListProduct();
+                req.setAttribute("message", "Edit product successfully!");
+                req.setAttribute("product", newProduct);
 
             }
-            dispatcher.forward(req, resp);
-        } catch (NumberFormatException | SQLException numberFormatException) {
-            //
-            errors.add("Định dạng của category không hợp lệ");
+        } catch (NumberFormatException numberFormatException) {
+            errors.add("Invalid price or quantity format !!!");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (req.getAttribute("product") == null)
+                req.setAttribute("product", oldProduct);
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/admin/product/edit_product.jsp");
             req.setAttribute("errors", errors);
-            req.setAttribute("product", product);
-            dispatcher.forward(req, resp);
+            requestDispatcher.forward(req, resp);
         }
     }
 
@@ -277,7 +313,10 @@ public class ProductServlet extends HttpServlet {
         }
 
     }
-
+    private void updateListProduct() {
+        this.getServletContext().removeAttribute("listProduct");
+        this.getServletContext().setAttribute("listProduct", iProductDAO.selectAllProducts());
+    }
 
     @Override
     public void init() throws ServletException {
@@ -289,3 +328,4 @@ public class ProductServlet extends HttpServlet {
         }
     }
 }
+

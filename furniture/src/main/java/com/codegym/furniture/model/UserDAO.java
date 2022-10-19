@@ -12,9 +12,9 @@ public class UserDAO implements IUserDAO {
     private String jdbcUsername = "root";
     private String jdbcPassword = "haibinh";
 
-    private static final String INSERT_USERS_SQL = "INSERT INTO user" +
-            "(username,password,name,phone,address,email,Role) VALUES " +
-            " (?, ?, ?,?,?,?,?);";
+    private static final String INSERT_USERS_SQL = "INSERT INTO users" +
+            "(username,password,fullname,phone,email,address,image,idrole) VALUES " +
+            " (?, ?, ?,? , ?, ?, ?, ?);";
 
     private static final String SELECT_USER_BY_ID = "select username,password,fullname,phone,email,address,image,idrole " +
             " from users where id =?";
@@ -23,13 +23,6 @@ public class UserDAO implements IUserDAO {
     private static final String SELECT_USER_BY_USERNAME = "select u.id,u.username,u.password,u.fullname, u.phone,u.email,u.address,u.image,u.idrole  "
             + "    		 from users as u inner join roles as r "
             + "    		where u.username = ? and u.idrole = r.id;";
-    private static final String SELECT_USER_BY_EMAIL = "select u.id,u.username,u.password,u.fullname, u.phone,u.email, u.address,u.image,u.idrole\n"
-            + "    		 from users as u inner join roles as r\n"
-            + "    		where u.email = ? and u.idrole = r.id;";
-    private static final String SELECT_USER_BY_PHONE = "select u.id,u.username,u.password,u.fullname, u.phone,u.email,u.address,u.image,u.idrole\n"
-            + "    		 from users as u inner join roles as r\n"
-            + "    		where u.phone = ? and u.idrole = r.id;";
-    private static final String SEARCH_BY_NAME_TYPE = "SELECT * FROM users  WHERE  fullname LIKE ? OR phone LIKE ? OR email LIKE ? ; ";
     public static String USER_EXIST_BY_USER = "" +
             "SELECT COUNT(*) AS COUNT " +
             "FROM users AS u " +
@@ -44,7 +37,7 @@ public class UserDAO implements IUserDAO {
             ",image=?" +
             ",idole=?" +
             " where id = ?;";
-    private static final String SELECT_LOGIN = "select * from users where username = ? and password = ?";
+
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -72,7 +65,6 @@ public class UserDAO implements IUserDAO {
             preparedStatement.setString(6, user.getAddress());
             preparedStatement.setString(7, user.getImage());
             preparedStatement.setInt(8, user.getIdrole());
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
@@ -83,9 +75,9 @@ public class UserDAO implements IUserDAO {
     public User selectUser(int id) {
         User user = null;
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID)) {
             preparedStatement.setInt(1, id);
-            System.out.println(preparedStatement);
+            System.out.println(getClass() + " selectUser " + preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 String username = rs.getString("username");
@@ -106,7 +98,7 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public List<User> selectAllUsers() {
-        List<User> users = new ArrayList<>();
+        List<User> listUser = new ArrayList<>();
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS)) {
             System.out.println(preparedStatement);
@@ -121,19 +113,20 @@ public class UserDAO implements IUserDAO {
                 String address = rs.getString("address");
                 String image = rs.getString("image");
                 int idrole = rs.getInt("idrole");
-                users.add(new User(id, username, password, fullName, phone, email, address, image, idrole));
+               User user = new User(id, username, password, fullName, phone, email, address, image, idrole);
+               listUser.add(user);
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return users;
+        return listUser;
     }
 
     @Override
     public boolean updateUser(User user) throws SQLException {
         boolean rowUpdated;
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
+             PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL)) {
 
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
@@ -184,16 +177,15 @@ public class UserDAO implements IUserDAO {
     @Override
     public User getLogin(String username) {
         User user = null;
-        // Step 1: Establishing a Connection
-        try (Connection connection =getConnection();
-             // Step 2:Create a statement using connection object
+
+        try (Connection connection = getConnection();
+
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_USERNAME);) {
             preparedStatement.setString(1, username);
             System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
+
             ResultSet rs = preparedStatement.executeQuery();
 
-            // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String password = rs.getString("password");
@@ -203,42 +195,12 @@ public class UserDAO implements IUserDAO {
                 String address = rs.getString("address");
                 String image = rs.getString("image");
                 int idrole = rs.getInt("idrole");
-                user = new User(id, username, password, fullname, phone, address, email, image,idrole);
+                user = new User(id, username, password, fullname, phone, address, email, image, idrole);
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
         return user;
-    }
-
-    public User selectUserByPhone(String phone) {
-        User user = null;
-
-        try (Connection connection = getConnection();
-
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_PHONE);) {
-            preparedStatement.setString(1, phone);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                String fullname = rs.getString("fullname");
-                String email = rs.getString("email");
-                String address = rs.getString("address");
-                String image = rs.getString("image");
-                int idrole = rs.getInt("idrole");
-                user = new User(id, username, password, fullname, phone, email, address, image, idrole);
-
-                return user;
-            }
-            return null;
-        } catch (SQLException e) {
-            printSQLException(e);
-            return null;
-        }
     }
 
     private void printSQLException(SQLException ex) {

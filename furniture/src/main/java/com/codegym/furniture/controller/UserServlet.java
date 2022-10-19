@@ -4,6 +4,7 @@ import com.codegym.furniture.model.IRoleDAO;
 import com.codegym.furniture.model.IUserDAO;
 import com.codegym.furniture.model.RoleDAO;
 import com.codegym.furniture.model.UserDAO;
+import com.codegym.furniture.view.Role;
 import com.codegym.furniture.view.User;
 
 import javax.servlet.RequestDispatcher;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/users"} , name = "UserServlet")
+@WebServlet(urlPatterns = {"/users"}, name = "UserServlet")
 public class UserServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private IUserDAO iUserDAO;
@@ -68,6 +69,8 @@ public class UserServlet extends HttpServlet {
     }
 
     private void showEditForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = new User();
+        req.setAttribute("user", user);
         int id = Integer.parseInt(req.getParameter("id"));
         User existingUser = iUserDAO.selectUser(id);
         req.setAttribute("user", existingUser);
@@ -108,15 +111,15 @@ public class UserServlet extends HttpServlet {
     }
 
     private void insertUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
-       String username = req.getParameter("username");
-       String passwork = req.getParameter("passwork");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
         String fullname = req.getParameter("fullname");
         String phone = req.getHeader("phone");
         String email = req.getParameter("email");
         String address = req.getParameter("address");
         String image = req.getParameter("image");
-        String idrole = String.valueOf(Integer.parseInt(req.getParameter("idrole"))) ;
-        User user = new User(username,passwork,fullname,phone, email, address, image, idrole);
+        String idrole = String.valueOf(Integer.parseInt(req.getParameter("idrole")));
+        User user = new User(username, password, fullname, phone, email, address, image, idrole);
         iUserDAO.insertUser(user);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/admin/user/create_user.jsp");
         dispatcher.forward(req, resp);
@@ -126,8 +129,11 @@ public class UserServlet extends HttpServlet {
     public void init() throws ServletException {
         iUserDAO = new UserDAO();
         iRoleDAO = new RoleDAO();
+        List<Role> listRole = iRoleDAO.selectAllRole();
         if (this.getServletContext().getAttribute("listRole") == null) {
-            this.getServletContext().setAttribute("listRole", iRoleDAO.selectAllRole());
+            this.getServletContext().setAttribute("listRole",listRole);
         }
     }
 }
+
+

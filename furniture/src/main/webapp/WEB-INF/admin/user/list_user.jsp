@@ -24,14 +24,20 @@
 
 
     <!-- Sidebar Start -->
-    <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp">
+        <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
+        <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+    </jsp:include>
     <!-- Sidebar End -->
 
 
     <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
-        <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp"></jsp:include>
+        <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp">
+            <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
+            <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+        </jsp:include>
         <!-- Navbar End -->
 
 
@@ -41,7 +47,7 @@
                 <div class="col-sm-10 col-xl-7">
                     <a style="font-size: larger" class="btn btn-outline-success" href="/users?action=create"
                        title="create"><i class="fa-solid fa-square-plus"></i>
-                        Create Product</a>
+                        Create User</a>
                 </div>
                 <div class="col-sm-6">
 <%--                    <form action="/product" method="get" class="form-horizontal form-group row">--%>
@@ -78,6 +84,7 @@
                                     <th scope="col">Email</th>
                                     <th scope="col">Address</th>
                                     <th scope="col">Image</th>
+                                    <th scope="col">Role</th>
                                     <th scope="col" colspan="2">Action</th>
                                 </tr>
                                 </thead>
@@ -91,8 +98,15 @@
                                         <td><c:out value="${user.getAddress()}"/></td>
                                         <td><img src="${user.getImage()}" style="width: 120px; height: 120px"></td>
                                         <td>
-                                            <a href="/product?action=edit&id=${user.getId()}"><i
-                                                    class="btn btn-outline-warning fa-regular fa-pen-to-square"></i>Edit
+                                            <c:forEach items="${applicationScope.listRole}" var="role">
+                                                <c:if test="${role.getId()==user.getIdrole()}">
+                                                    ${role.getRole()}
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                            <a href="/users?action=edit&id=${requestScope.user.getId()}"><i
+                                                    class="btn btn-outline-warning fa-regular fa-pen-to-square"></i>
                                             </a>
                                         </td>
                                         <td><a onclick="showMessage(${user.getId()})"><i

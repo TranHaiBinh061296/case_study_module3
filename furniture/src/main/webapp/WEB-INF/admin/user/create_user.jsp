@@ -19,14 +19,20 @@
 
 
     <!-- Sidebar Start -->
-    <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp">
+        <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
+        <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+    </jsp:include>
     <!-- Sidebar End -->
 
 
     <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
-        <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp"></jsp:include>
+        <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp">
+            <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
+            <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+        </jsp:include>
         <!-- Navbar End -->
 
 <%--        <c:if test="${!requestScope.errors.isEmpty()&&requestScope.errors!=null }">--%>
@@ -70,37 +76,37 @@
                             </c:if>
                             <div class="mb-3">
                                 <label for="" class="form-label">UserName</label>
-                                <input type="text" class="form-control" name="username" id="name" value="${requestScope.user.getName()}"  placeholder="Enter username">
+                                <input type="text" class="form-control" name="username" id="name" value="${user.getUsername()}"  placeholder="Enter username">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="" class="form-label">Passwork</label>
-                                <input min="0" type="password" name="passwork" id="passwork" value="${requestScope.user.getPasswork()}" class="form-control" placeholder="**********">
+                                <label for="" class="form-label">Password</label>
+                                <input min="0" type="password" name="password" id="password" value="${user.getPassword()}" class="form-control" placeholder="">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Full Name</label>
-                                <input  type="text" name="fullname" id="fullname" value="${requestScope.user.getFullname()}" class="form-control" placeholder="Enter full name">
+                                <input  type="text" name="fullname" id="fullname" value="${user.getFullname()}" class="form-control" placeholder="Enter full name">
                                 <div id="" class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Phone </label>
-                                <input min="0" max="10" type="number" name="phone" id="phone" value="${requestScope.user.getPhone()}" class="form-control" placeholder="Enter phone (0987654321)">
+                                <input type="number" name="phone" id="phone" value="${user.getPhone()}" class="form-control" placeholder="Enter phone (0987654321)">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Email </label>
-                                <input  type="text" name="email" id="email" value="${requestScope.user.getEmail()}" class="form-control" placeholder="Enter email (hayhoi@gmail.com)">
+                                <input  type="text" name="email" id="email" value="${user.getEmail()}" class="form-control" placeholder="Enter email (hayhoi@gmail.com)">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label"> Address</label>
-                                <input  type="text" name="address" id="address" value="${requestScope.user.getAddress()}" class="form-control" placeholder="Enter address (Huế)">
+                                <input  type="text" name="address" id="address" value="${user.getAddress()}" class="form-control" placeholder="Enter address (Huế)">
                                 <div  class="form-text">
                                 </div>
                             </div>
@@ -109,7 +115,7 @@
                                 <input class="form-control" id="image" type="text" name="image"
                                        placeholder="Input image"
                                        onchange="chooseFile()"
-                                       value="${requestScope.user.getImage()}">
+                                       value="${user.getImage()}">
                                 <div class="form-text">
                                 </div>
                             </div>
@@ -121,14 +127,13 @@
                                     </a>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
                 <div class="col-sm-12 col-xl-6">
                     <div class="bg-light rounded h-100 p-4">
                         <img id="imageUser"
-                             src="https://noithatkiennam.com/wp-content/uploads/2020/06/interior-bright-living-room-with-pillows-sofa-armchair-plants-lamp-empty-blue-wall-background_41470-708.jpg"
+                             src="https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg"
                              alt="user image"
                              style="width: 100%">
                     </div>

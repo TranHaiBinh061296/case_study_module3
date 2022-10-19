@@ -19,14 +19,20 @@
 
 
     <!-- Sidebar Start -->
-    <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp">
+        <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
+        <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+    </jsp:include>
     <!-- Sidebar End -->
 
 
     <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
-        <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp"></jsp:include>
+        <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp">
+            <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
+            <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+        </jsp:include>
         <!-- Navbar End -->
 
         <c:if test="${!requestScope.errors.isEmpty()&&requestScope.errors!=null }">
@@ -112,7 +118,8 @@
                                 </div>
                             </div>
                             <div style="display: flex; padding: 10px" >
-                                <div><button type="submit" class="btn btn-primary">Create</button></div>
+                                <div><button type="submit" class="btn btn-primary" >Create</button></div>
+
                                 <div class="btn-group">
                                     <a href="/product" title="Exit" class="btn btn-outline-warning" style="color: black; font-weight: bold">
                                         <i class="glyphicon glyphicon-floppy-disk " aria-hidden="true" ></i> Exit

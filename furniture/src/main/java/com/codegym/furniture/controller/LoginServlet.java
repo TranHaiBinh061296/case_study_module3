@@ -42,8 +42,7 @@ public class LoginServlet extends HttpServlet {
                     HttpSession httpSession = req.getSession(true);
                     httpSession.setAttribute("userLogin", userLogin);
                     req.setAttribute("userLogin", userLogin);
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/admin/product/list_product.jsp");
-                    dispatcher.forward(req, resp);
+                    resp.sendRedirect("/product");
                 } else {
                     req.setAttribute("message", "Login unsuccessful. Please log in again");
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/login.jsp");

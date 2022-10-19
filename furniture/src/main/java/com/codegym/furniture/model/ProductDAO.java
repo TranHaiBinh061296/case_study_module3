@@ -175,7 +175,7 @@ public class ProductDAO implements IProductDAO {
                 stmt.setInt(2, idcategory);
             } else {
                 if (idcategory == -1) {
-                    String query = "select SQL_CALC_FOUND_ROWS * from products where name like ? limit "
+                    String query = "select SQL_CALC_FOUND_ROWS * from products where name like ? limit  "
                             + offset + ", " + noOfRecords;
                     stmt = connection.prepareStatement(query);
                     stmt.setString(1, '%' + q + '%');

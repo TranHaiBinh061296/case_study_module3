@@ -214,7 +214,7 @@
 
 
         <hr>
-        <div style="color: red">${message}</div>
+        <div style="color: red"> <h2>${message}</h2></div>
         <a href="#">Forgot Password?</a>
     </form>
 

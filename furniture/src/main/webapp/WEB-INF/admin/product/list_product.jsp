@@ -24,14 +24,20 @@
 
 
     <!-- Sidebar Start -->
-    <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp">
+        <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
+        <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+    </jsp:include>
     <!-- Sidebar End -->
 
 
     <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
-        <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp"></jsp:include>
+        <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp">
+            <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
+            <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+        </jsp:include>
         <!-- Navbar End -->
 
 
@@ -88,8 +94,8 @@
                                         <td><c:out value="${product.getId()}"/></td>
                                         <td><c:out value="${product.getName()}"/></td>
                                         <td><c:out value="${product.getQuantity()}"/></td>
-                                        <td><fmt:formatNumber value="${product.getPrice()}" type="currency"
-                                                              pattern="#,### ₫"/></td>
+                                        <td><fmt:formatNumber type="number" maxFractionDigits="3"
+                                                              value="${product.getPrice()}"/></td>
                                         <td><img src="${product.getImage()}" style="width: 120px; height: 120px"></td>
                                         <td>
                                             <c:out value="${product.getDescription()}"></c:out>
@@ -122,9 +128,9 @@
              style="position: relative; left: 500px;">
             <ul class="pagination">
                 <c:if test="${requestScope.currentPage != 1}">
-                    <li class="page-item ">
+                    <li class="pagination">
                         <a class="page-link" href="product?page=${requestScope.currentPage - 1}"
-                           style="background-color: green">Back</a>
+                           style="background-color: #fff3cd"><i class="fa fa-angle-double-left"></i></a>
                     </li>
                 </c:if>
 
@@ -144,9 +150,9 @@
 
 
                 <c:if test="${requestScope.currentPage lt requestScope.noOfPages}">
-                    <li class="page-item ">
+                    <li class="pagination">
                         <a class="page-link" href="product?page=${requestScope.currentPage + 1}"
-                           style="background-color: green">Next</a>
+                           style="background-color: #fff3cd"><i class="fa fa-angle-double-right"></i></a>
                     </li>
                 </c:if>
             </ul>
