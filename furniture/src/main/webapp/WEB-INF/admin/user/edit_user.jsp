@@ -32,8 +32,8 @@
     <div class="content">
         <!-- Navbar Start -->
         <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp">
-            <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
-            <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+            <jsp:param name="fullname" value="${sessionScope.account.getFullname()}"/>
+            <jsp:param name="image" value="${sessionScope.account.getImage()}"/>
         </jsp:include>
         <!-- Navbar End -->
 
@@ -92,42 +92,42 @@
                             <div class="mb-3">
                                 <label for="" class="form-label"> UserName</label>
                                 <input type="text" class="form-control" name="username" id="username"
-                                       value="<c:out value="${user.getUsername()}"/> ">
+                                       value="<c:out value="${requestScope.user.getUsername()}"/> ">
                                 <div class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Password</label>
-                                <input min="0" type="number" name="password" id="password"
-                                       value="<c:out value="${user.getPassword()}"/>" class="form-control">
+                                <input min="0" type="text" name="password" id="password"
+                                       value="<c:out value="${requestScope.user.getPassword()}"/>" class="form-control">
                                 <div class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Full Name</label>
-                                <input  type="number" name="fullname" id="fullname"
-                                       value="<c:out value="${user.getFullname()}"/>" class="form-control">
+                                <input  type="text" name="fullname" id="fullname"
+                                       value="<c:out value="${requestScope.user.getFullname()}"/>" class="form-control">
                                 <div id="" class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Phone</label>
-                                <input  type="number" name="phone" id="phone"
-                                       value="<c:out value="${user.getPhone()}"/>" class="form-control">
+                                <input  type="text" name="phone" id="phone"
+                                       value="<c:out value="${requestScope.user.getPhone()}"/>" class="form-control">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Email</label>
-                                <input  type="number" name="email" id="email"
-                                        value="<c:out value="${user.getEmail()}"/>" class="form-control">
+                                <input  type="text" name="email" id="email"
+                                        value="<c:out value="${requestScope.user.getEmail()}"/>" class="form-control">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Address</label>
-                                <input  type="number" name="address" id="address"
-                                        value="<c:out value="${user.getAddress()}"/>" class="form-control">
+                                <input  type="text" name="address" id="address"
+                                        value="<c:out value="${requestScope.user.getAddress()}"/>" class="form-control">
                                 <div  class="form-text">
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                                 <input class="form-control" id="image" type="text" name="image"
                                        placeholder="Enter image"
                                        onchange="chooseFile()"
-                                       value="<c:out value="${user.getImage()}"/>">
+                                       value="<c:out value="${requestScope.user.getImage()}"/>">
                                 <div class="form-text">
                                 </div>
                             </div>
@@ -152,7 +152,7 @@
                                 </div>
                             </div>
                             <div style="display: flex" >
-                                <button type="submit" class="btn btn-outline-success" style="margin: 10px" title="Cập nhật">Update</button>
+                                <button type="submit" class="btn btn-outline-success" style="margin: 0px" title="Cập nhật">Update</button>
                                 <div>
                                     <a href="/users" title="Exit" class="btn-outline-warning"
                                        style="color: black; font-weight: bold; margin-top: 10px">

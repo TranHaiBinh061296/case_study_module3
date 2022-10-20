@@ -25,8 +25,8 @@
 
     <!-- Sidebar Start -->
     <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp">
-        <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
-        <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+        <jsp:param name="fullname" value="${sessionScope.account.getFullname()}"/>
+        <jsp:param name="image" value="${sessionScope.account.getImage()}"/>
     </jsp:include>
     <!-- Sidebar End -->
 
@@ -35,8 +35,8 @@
     <div class="content">
         <!-- Navbar Start -->
         <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp">
-            <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
-            <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+            <jsp:param name="fullname" value="${sessionScope.account.getFullname()}"/>
+            <jsp:param name="image" value="${sessionScope.account.getImage()}"/>
         </jsp:include>
         <!-- Navbar End -->
 
@@ -81,7 +81,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Name Product</th>
                                     <th scope="col">Quantity</th>
-                                    <th scope="col">Price</th>
+                                    <th scope="col">Price (vnd)</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Category</th>

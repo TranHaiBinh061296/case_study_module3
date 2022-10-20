@@ -25,8 +25,8 @@
 
   <!-- Sidebar Start -->
   <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp">
-    <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
-    <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+    <jsp:param name="fullname" value="${sessionScope.account.getFullname()}"/>
+    <jsp:param name="image" value="${sessionScope.account.getImage()}"/>
   </jsp:include>
   <!-- Sidebar End -->
 
@@ -35,8 +35,8 @@
   <div class="content">
     <!-- Navbar Start -->
     <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp">
-      <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
-      <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+      <jsp:param name="fullname" value="${sessionScope.account.getFullname()}"/>
+      <jsp:param name="image" value="${sessionScope.account.getImage()}"/>
     </jsp:include>
     <!-- Navbar End -->
 
@@ -44,11 +44,11 @@
     <!-- Table Start -->
     <div class="container-fluid pt-4 px-4">
       <div class="row g-4">
-        <div class="col-sm-10 col-xl-7">
-          <a style="font-size: larger" class="btn btn-outline-success" href="/product?action=create"
-             title="create"><i class="fa-solid fa-square-plus"></i>
-            Create Product</a>
-        </div>
+<%--        <div class="col-sm-10 col-xl-7">--%>
+<%--          <a style="font-size: larger" class="btn btn-outline-success" href="/product?action=create"--%>
+<%--             title="create"><i class="fa-solid fa-square-plus"></i>--%>
+<%--            Create Product</a>--%>
+<%--        </div>--%>
         <div class="col-sm-6">
           <form action="/product" method="get" class="form-horizontal form-group row">
             <div class="col-5" style="padding-right: 5px">
@@ -96,7 +96,7 @@
                     <td><fmt:formatNumber type="number" maxFractionDigits="3"
                                           value="${product.getPrice()}"/></td>
                     <td><img src="${product.getImage()}" style="width: 120px; height: 120px"></td>
-                    <td>
+                    <td style="text-align: center">
                       <c:out value="${product.getDescription()}"></c:out>
                     </td>
                     <td>

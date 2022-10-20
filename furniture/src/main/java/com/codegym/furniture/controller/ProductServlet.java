@@ -34,6 +34,11 @@ public class ProductServlet extends HttpServlet {
         resp.setContentType("text/html/charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
+        HttpSession session = req.getSession();
+        if (session.getAttribute("account") == null) {
+            resp.sendRedirect("/login?option=user");
+            return;
+        }
         String action = req.getParameter("action");
         if (action == null) {
             action = "";
@@ -57,7 +62,7 @@ public class ProductServlet extends HttpServlet {
                     listProductPage(req,resp);
                     break;
                 default:
-                    listProductPage(req, resp);
+                    listProductNoAction(req, resp);
                     break;
 
             }
@@ -101,7 +106,32 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
+    private void listProductNoAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int page = 1;
+        int recordsPerPage = 4;
+        String q = "";
+        int idcategory = -1;
+        if (req.getParameter("q") != null) {
+            q = req.getParameter("q");
+        }
+        if (req.getParameter("idcategory") != null) {
+            idcategory = Integer.parseInt(req.getParameter("idcategory"));
+        }
+        if (req.getParameter("page") != null)
+            page = Integer.parseInt(req.getParameter("page"));
+        List<Product> listProduct = iProductDAO.selectAllProductsPaggingFilter((page - 1) * recordsPerPage, recordsPerPage, q, idcategory);
+        int noOfRecords = iProductDAO.getNoOfRecords();
+        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 
+        System.out.println(getClass() + " listProductPage " + listProduct);
+        req.setAttribute("listProduct", listProduct);
+        req.setAttribute("noOfPages", noOfPages);
+        req.setAttribute("currentPage", page);
+        req.setAttribute("q", q);
+        req.setAttribute("idcategory", idcategory);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/admin/product/list.jsp");
+        dispatcher.forward(req, resp);
+    }
 
 
 
@@ -249,7 +279,7 @@ public class ProductServlet extends HttpServlet {
             quantity = Integer.parseInt(req.getParameter("quantity"));
             price = Integer.parseInt((req.getParameter("price")));
             image = req.getParameter("image");
-            if (image.trim().equals("")) errors.add("Image not nul");
+            if (!ValidateUtils.isImageValid(image)) errors.add("Image link is not correct !!!");
 
             description = req.getParameter("description");
             int idcategory = Integer.parseInt(req.getParameter("idcategory"));

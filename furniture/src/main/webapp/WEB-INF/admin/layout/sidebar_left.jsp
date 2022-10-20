@@ -28,6 +28,7 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Products</a>
                 <div class="dropdown-menu bg-transparent border-0">
+                    <a href="/product" class="dropdown-item">List products</a>
                         <a href="/product?action=create" class="dropdown-item">Add new products</a>
                     <a href="/product?action=edits" class="dropdown-item">Edit product</a>
                 </div>
@@ -35,8 +36,8 @@
             <div class="nav-item dropdown">
                 <a href="/users" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Users</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="signin.html" class="dropdown-item">Sign In</a>
-                    <a href="signup.html" class="dropdown-item">Sign Up</a>
+                    <a href="/users" class="dropdown-item">Edit users</a>
+                    <a href="/users?action=create" class="dropdown-item">Create users</a>
                 </div>
             </div>
         </div>

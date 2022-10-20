@@ -107,7 +107,21 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-    private void updateUser(HttpServletRequest req, HttpServletResponse resp) {
+    private void updateUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String fullname = req.getParameter("fullname");
+        String phone = req.getHeader("phone");
+        String email = req.getParameter("email");
+        String image = req.getParameter("image");
+        String address = req.getParameter("address");
+        int idrole = Integer.parseInt(req.getParameter("idrole"));
+
+        User user = new User(id, username,password,fullname,phone, email,image, address,idrole);
+        iUserDAO.updateUser(user);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/admin/user/edit_user.jsp");
+        dispatcher.forward(req, resp);
     }
 
     private void insertUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {

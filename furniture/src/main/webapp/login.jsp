@@ -192,9 +192,9 @@
     <h2 class="active"> sign in </h2>
 
     <h2 class="nonactive"> sign up </h2>
-    <form method="post" action="/login" id="loginForm" name="userLogin">
+    <form method="post" action="/login?option=user" id="loginForm" name="userLogin">
 
-        <input type="text" class="text" name="username" id="username">
+        <input type="username" class="text" name="username" id="username">
         <span>username</span>
 
         <br>
@@ -205,8 +205,10 @@
         <span>password</span>
         <br>
 
-        <input type="checkbox" id="checkbox-1-1" class="custom-checkbox" />
-        <label for="checkbox-1-1">Keep me Signed in</label>
+       <div class="checkbox">
+           <input type="checkbox" id="rememberMeCheckBox">
+           <label for="rememberMeCheckBox">Keep me Signed in</label>
+       </div>
 
         <button class="signin" value="login" type="submit">
             Sign In

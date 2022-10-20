@@ -27,6 +27,8 @@ public class UserDAO implements IUserDAO {
             "SELECT COUNT(*) AS COUNT " +
             "FROM users AS u " +
             "WHERE u.username = ?;";
+    private static final String SELECT_USER_BY_USER_PASS =
+            "SELECT * FROM users WHERE username = ? AND password = ?";
     private static final String UPDATE_USERS_SQL = "update users set" +
             " username=?" +
             ",password=?" +
@@ -54,7 +56,6 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public void insertUser(User user) throws SQLException {
-        System.out.println(INSERT_USERS_SQL);
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setString(1, user.getUsername());
@@ -174,6 +175,21 @@ public class UserDAO implements IUserDAO {
         return exist;
     }
 
+    private User getUserFromResultSet(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
+        String username = rs.getString("username");
+        String password = rs.getString("password");
+        String fullName = rs.getString("fullname");
+        String phone = rs.getString("phone");
+        String email = rs.getString("email");
+        String address = rs.getString("address");
+        String image = rs.getString("image");
+        int idrole = rs.getInt("idrole");
+
+        User user = new User(id, username, password, fullName, phone, email, address, image, idrole);
+        return user;
+    }
+
     @Override
     public User getLogin(String username) {
         User user = null;
@@ -200,6 +216,24 @@ public class UserDAO implements IUserDAO {
         }
         return user;
     }
+
+    @Override
+    public User checkUserNamePassword(String username, String password) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_USER_PASS)) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet rs = preparedStatement.executeQuery();
+            System.out.println(this.getClass() + " checkUserNamePassword: " + preparedStatement);
+            while (rs.next()) {
+                return getUserFromResultSet(rs);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return null;
+    }
+
 
 //    @Override
 //    public boolean checkUserNamePassword(String username, String password) {

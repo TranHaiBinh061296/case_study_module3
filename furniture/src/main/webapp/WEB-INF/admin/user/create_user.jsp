@@ -20,8 +20,8 @@
 
     <!-- Sidebar Start -->
     <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp">
-        <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
-        <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+        <jsp:param name="fullname" value="${sessionScope.account.getFullname()}"/>
+        <jsp:param name="image" value="${sessionScope.account.getImage()}"/>
     </jsp:include>
     <!-- Sidebar End -->
 
@@ -30,8 +30,8 @@
     <div class="content">
         <!-- Navbar Start -->
         <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp">
-            <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
-            <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+            <jsp:param name="fullname" value="${sessionScope.account.getFullname()}"/>
+            <jsp:param name="image" value="${sessionScope.account.getImage()}"/>
         </jsp:include>
         <!-- Navbar End -->
 
@@ -72,41 +72,41 @@
                         <h6 class="mb-4">ADD USER</h6>
                         <form action="" method="post">
                             <c:if test="${requestScope.user != null}">
-                                <input type="hidden" name="id" value="<c:out value='${user.getId()}' />"/>
+                                <input type="hidden" name="id" value="<c:out value='${requestScope.user.getId()}' />"/>
                             </c:if>
                             <div class="mb-3">
                                 <label for="" class="form-label">UserName</label>
-                                <input type="text" class="form-control" name="username" id="name" value="${user.getUsername()}"  placeholder="Enter username">
+                                <input type="text" class="form-control" name="username" id="name" value="${requestScope.user.getUsername()}"  placeholder="Enter username">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Password</label>
-                                <input min="0" type="password" name="password" id="password" value="${user.getPassword()}" class="form-control" placeholder="">
+                                <input min="0" type="password" name="password" id="password" value="${requestScope.user.getPassword()}" class="form-control" placeholder="">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Full Name</label>
-                                <input  type="text" name="fullname" id="fullname" value="${user.getFullname()}" class="form-control" placeholder="Enter full name">
+                                <input  type="text" name="fullname" id="fullname" value="${requestScope.user.getFullname()}" class="form-control" placeholder="Enter full name">
                                 <div id="" class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Phone </label>
-                                <input type="number" name="phone" id="phone" value="${user.getPhone()}" class="form-control" placeholder="Enter phone (0987654321)">
+                                <input type="number" name="phone" id="phone" value="${requestScope.user.getPhone()}" class="form-control" placeholder="Enter phone (0987654321)">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Email </label>
-                                <input  type="text" name="email" id="email" value="${user.getEmail()}" class="form-control" placeholder="Enter email (hayhoi@gmail.com)">
+                                <input  type="text" name="email" id="email" value="${requestScope.user.getEmail()}" class="form-control" placeholder="Enter email (hayhoi@gmail.com)">
                                 <div  class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label"> Address</label>
-                                <input  type="text" name="address" id="address" value="${user.getAddress()}" class="form-control" placeholder="Enter address (Huế)">
+                                <input  type="text" name="address" id="address" value="${requestScope.user.getAddress()}" class="form-control" placeholder="Enter address (Huế)">
                                 <div  class="form-text">
                                 </div>
                             </div>
@@ -115,10 +115,23 @@
                                 <input class="form-control" id="image" type="text" name="image"
                                        placeholder="Input image"
                                        onchange="chooseFile()"
-                                       value="${user.getImage()}">
+                                       value="${requestScope.user.getImage()}">
                                 <div class="form-text">
                                 </div>
                             </div>
+                            <select name="role" class="form-control">
+                                <c:forEach items="${applicationScope.listRole}" var="role">
+                                    <c:choose>
+                                        <c:when test="${role.getId()==requestScope.user.getIdrole()}">
+                                            <option value="${role.getId()}"
+                                                    selected>${role.getRole()}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${role.getId()}">${role.getRole()}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
                             <div style="display: flex; padding: 10px" >
                                 <div><button type="submit" class="btn btn-primary">Create</button></div>
                                 <div class="btn-group">
@@ -137,12 +150,13 @@
                              alt="user image"
                              style="width: 100%">
                     </div>
-                    <%--                    <div class="bg-light rounded h-10 p-4">--%>
-                    <%--                        <img--%>
-                    <%--                                src="https://donggia.vn/wp-content/uploads/2018/12/mau-thiet-ke-noi-that-nha-pho-dep-moi-2020-5-1-1024x576.jpg"--%>
-                    <%--                                alt="user image"--%>
-                    <%--                                style="width: 100%">--%>
-                    <%--                    </div>--%>
+                    <script>
+                        function chooseFile() {
+                            let image_src = document.querySelector("#image").value;
+                            let image = document.querySelector("#imageProduct");
+                            image.setAttribute("src", image_src);
+                        }
+                    </script>
                 </div>
             </div>
         </div>

@@ -25,8 +25,8 @@
 
     <!-- Sidebar Start -->
     <jsp:include page="/WEB-INF/admin/layout/sidebar_left.jsp">
-        <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
-        <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+        <jsp:param name="fullname" value="${sessionScope.account.getFullname()}"/>
+        <jsp:param name="image" value="${sessionScope.account.getImage()}"/>
     </jsp:include>
     <!-- Sidebar End -->
 
@@ -35,8 +35,8 @@
     <div class="content">
         <!-- Navbar Start -->
         <jsp:include page="/WEB-INF/admin/layout/headerhtml.jsp">
-            <jsp:param name="fullname" value="${sessionScope.userLogin.getFullname()}"/>
-            <jsp:param name="image" value="${sessionScope.userLogin.getImage()}"/>
+            <jsp:param name="fullname" value="${sessionScope.account.getFullname()}"/>
+            <jsp:param name="image" value="${sessionScope.account.getImage()}"/>
         </jsp:include>
         <!-- Navbar End -->
 

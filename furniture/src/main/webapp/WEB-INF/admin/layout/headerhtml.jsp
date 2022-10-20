@@ -24,16 +24,16 @@
           <div class="d-flex align-items-center">
             <i class="fa-brands fa-facebook"></i>
             <div class="ms-2">
-              <h6 class="fw-normal mb-0">Facebook</h6>
+              <h6 class="fw-normal mb-0"><a href="https://www.facebook.com/profile.php?id=100004704638216">Facebook</a></h6>
             </div>
           </div>
         </a>
         <hr class="dropdown-divider">
         <a href="#" class="dropdown-item">
           <div class="d-flex align-items-center">
-            <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+            <img class="rounded-circle" src="<%=request.getParameter("image") %>" alt="" style="width: 40px; height: 40px;">
             <div class="ms-2">
-              <h6 class="fw-normal mb-0">Zalo</h6>
+              <h6 class="fw-normal mb-0"><a href="">Zalo</a></h6>
 
             </div>
           </div>
@@ -48,20 +48,6 @@
         <span class="d-none d-lg-inline-flex">Blog</span>
       </a>
       <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-        <a href="#" class="dropdown-item">
-          <h6 class="fw-normal mb-0">Profile updated</h6>
-          <small>15 minutes ago</small>
-        </a>
-        <hr class="dropdown-divider">
-        <a href="#" class="dropdown-item">
-          <h6 class="fw-normal mb-0">New user added</h6>
-          <small>15 minutes ago</small>
-        </a>
-        <hr class="dropdown-divider">
-        <a href="#" class="dropdown-item">
-          <h6 class="fw-normal mb-0">Password changed</h6>
-          <small>15 minutes ago</small>
-        </a>
         <hr class="dropdown-divider">
         <a href="#" class="dropdown-item text-center">See all notifications</a>
       </div>
