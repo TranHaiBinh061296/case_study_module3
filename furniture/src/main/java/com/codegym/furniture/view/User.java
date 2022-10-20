@@ -15,10 +15,10 @@ public class User {
     public User() {
     }
 
-    public User(int id, String username, String passwork, String fullname, String phone, String email, String address, String image, int idrole) {
+    public User(int id, String username, String password, String fullname, String phone, String email, String address, String image, int idrole) {
         this.id = id;
         this.username = username;
-        this.password = passwork;
+        this.password = password;
         this.fullname = fullname;
         this.phone = phone;
         this.email = email;
@@ -27,9 +27,9 @@ public class User {
         this.idrole = idrole;
     }
 
-    public User(String username, String passwork, String fullname, String phone, String email, String address, String image, String idrole) {
+    public User(String username, String password, String fullname, String phone, String email, String address, String image, String idrole) {
         this.username = username;
-        this.password = passwork;
+        this.password = password;
         this.fullname = fullname;
         this.phone = phone;
         this.email = email;

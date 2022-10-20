@@ -146,7 +146,7 @@ public class UserDAO implements IUserDAO {
     public boolean deleteUser(int id) throws SQLException {
         boolean rowDeleted;
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL)) {
             statement.setInt(1, id);
             rowDeleted = statement.executeUpdate() > 0;
         }
@@ -177,9 +177,7 @@ public class UserDAO implements IUserDAO {
     @Override
     public User getLogin(String username) {
         User user = null;
-
         try (Connection connection = getConnection();
-
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_USERNAME)) {
             preparedStatement.setString(1, username);
             System.out.println(preparedStatement);
@@ -203,30 +201,30 @@ public class UserDAO implements IUserDAO {
         return user;
     }
 
-    @Override
-    public boolean checkUserNamePassword(String username, String password) {
-        try {
-            Connection connection = getConnection();
-            String query = "select * from users where username = ? and password = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String fullname = rs.getString("fullname");
-                String phone = rs.getString("phone");
-                String email = rs.getString("email");
-                String address = rs.getString("address");
-                String image = rs.getString("image");
-                int idrole = rs.getInt("idrole");
-
-            }
-        } catch (SQLException e) {
-            printSQLException(e);
-        }
-        return true;
-    }
+//    @Override
+//    public boolean checkUserNamePassword(String username, String password) {
+//        try {
+//            Connection connection = getConnection();
+//            String query = "select * from users where username = ? and password = ?";
+//            PreparedStatement preparedStatement = connection.prepareStatement(query);
+//            preparedStatement.setString(1, username);
+//            preparedStatement.setString(2, password);
+//            ResultSet rs = preparedStatement.executeQuery();
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String fullname = rs.getString("fullname");
+//                String phone = rs.getString("phone");
+//                String email = rs.getString("email");
+//                String address = rs.getString("address");
+//                String image = rs.getString("image");
+//                int idrole = rs.getInt("idrole");
+//
+//            }
+//        } catch (SQLException e) {
+//            printSQLException(e);
+//        }
+//        return true;
+//    }
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {

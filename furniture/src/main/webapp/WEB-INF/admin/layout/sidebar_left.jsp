@@ -26,7 +26,7 @@
         </div>
         <div class="navbar-nav w-100">
             <div class="nav-item dropdown">
-                <a href="/product?action=view" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Products</a>
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Products</a>
                 <div class="dropdown-menu bg-transparent border-0">
                         <a href="/product?action=create" class="dropdown-item">Add new products</a>
                     <a href="/product?action=edits" class="dropdown-item">Edit product</a>

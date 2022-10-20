@@ -98,14 +98,14 @@
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Quantity</label>
-                                <input min="0" type="number" name="quantity" id="quantity"
+                                <input min="1" max="100" type="number" name="quantity" id="quantity"
                                        value="<c:out value="${product.getQuantity()}"/>" class="form-control">
                                 <div class="form-text">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Price</label>
-                                <input min="100000" type="number" name="price" id="price"
+                                <input min="100000" max="100000000" type="number" name="price" id="price"
                                        value="<c:out value="${product.getPrice()}"/>" class="form-control">
                                 <div id="" class="form-text">
                                 </div>
@@ -127,7 +127,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="" class="form-label">Category</label>
+                                <label for="" class="form-label">Category:  </label>
                                 <select name="idcategory">
                                     <c:forEach items="${listCategory}" var="category">
                                         <option value="${category.getId()}">${category.getName()}</option>
@@ -137,10 +137,10 @@
                                 </div>
                             </div>
                             <div style="display: flex" >
-                                <button type="submit" class="btn btn-outline-success" style="margin: 10px" title="Cập nhật">Update</button>
+                                <button type="submit" class="btn btn-outline-success" style="margin: 10px" title="update">Update</button>
                                 <div>
                                     <a href="/product" title="Exit" class="btn btn-outline-warning"
-                                       style="color: black; font-weight: bold; margin-top: 10px">
+                                       style="color: black; font-weight: bold; margin-top: 30px">
                                         <i class="fa-solid fa-right-from-bracket btn-outline-warning"></i>
                                     </a>
                                 </div>

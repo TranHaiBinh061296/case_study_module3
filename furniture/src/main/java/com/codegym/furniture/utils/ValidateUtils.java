@@ -3,7 +3,7 @@ package com.codegym.furniture.utils;
 import java.util.regex.Pattern;
 
 public class ValidateUtils {
-    private static final String IMAGE_PATTERN = "(https?:.*\\.(?:png|jpg|jpeg))";
+    private static final String IMAGE_PATTERN = "(https?:\\/\\/(www\\.)?|(www\\.))[A-z0-9_-]{3,200}(\\.[A-z]{1,4}){1,2}";
     private static final String PHONE_PATTERN = "^0[1-9][0-9]{8}$";
     public static final String PRICE_REGEX = "^[1-9][0-9]{0,10}\\.[0]";
     private static final String EMAIL_PATTERN = "^[A-Za-z0-9.]*[A-Za-z0-9]+@[A-Za-z0-9]+(.[A-Za-z0-9]+)$";

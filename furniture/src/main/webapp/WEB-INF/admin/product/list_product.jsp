@@ -44,11 +44,11 @@
         <!-- Table Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="row g-4">
-<%--                <div class="col-sm-10 col-xl-7">--%>
-<%--                    <a style="font-size: larger" class="btn btn-outline-success" href="/product?action=create"--%>
-<%--                       title="create"><i class="fa-solid fa-square-plus"></i>--%>
-<%--                        Create Product</a>--%>
-<%--                </div>--%>
+                <div class="col-sm-10 col-xl-7">
+                    <a style="font-size: larger" class="btn btn-outline-success" href="/product?action=create"
+                       title="create"><i class="fa-solid fa-square-plus"></i>
+                        Create Product</a>
+                </div>
                 <div class="col-sm-6">
                     <form action="/product" method="get" class="form-horizontal form-group row">
                         <div class="col-5" style="padding-right: 5px">
@@ -95,7 +95,7 @@
                                         <td><c:out value="${product.getName()}"/></td>
                                         <td><c:out value="${product.getQuantity()}"/></td>
                                         <td><fmt:formatNumber type="number" maxFractionDigits="3"
-                                                              value="${product.getPrice()}"/></td>
+                                                              value="${product.getPrice()}" /></td>
                                         <td><img src="${product.getImage()}" style="width: 120px; height: 120px"></td>
                                         <td>
                                             <c:out value="${product.getDescription()}"></c:out>

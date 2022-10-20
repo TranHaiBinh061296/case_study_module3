@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 10/16/2022
-  Time: 11:50 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="container-fluid pt-4 px-4">
   <div class="bg-light rounded-top p-4">

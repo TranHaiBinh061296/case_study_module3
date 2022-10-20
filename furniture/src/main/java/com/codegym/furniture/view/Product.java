@@ -61,8 +61,8 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-@Min(100000)
-@Max(1000000000)
+@Min(10000)
+@Max(100000000)
     public int getPrice() {
         return price;
     }
@@ -70,7 +70,7 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
-
+@NotEmpty(message = "Image not null")
     public String getImage() {
         return image;
     }

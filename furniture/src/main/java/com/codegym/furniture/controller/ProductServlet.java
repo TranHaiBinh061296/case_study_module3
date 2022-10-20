@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -248,6 +249,8 @@ public class ProductServlet extends HttpServlet {
             quantity = Integer.parseInt(req.getParameter("quantity"));
             price = Integer.parseInt((req.getParameter("price")));
             image = req.getParameter("image");
+            if (image.trim().equals("")) errors.add("Image not nul");
+
             description = req.getParameter("description");
             int idcategory = Integer.parseInt(req.getParameter("idcategory"));
             if (errors.isEmpty()) {
@@ -259,9 +262,11 @@ public class ProductServlet extends HttpServlet {
 
 
             }
-        } catch (NumberFormatException numberFormatException) {
+        }
+        catch (NumberFormatException numberFormatException) {
             errors.add("Invalid price or quantity format !!!");
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }finally {
             if (req.getAttribute("product") == null)
@@ -271,6 +276,7 @@ public class ProductServlet extends HttpServlet {
 
             requestDispatcher.forward(req, resp);
         }
+
     }
 
     private void insertProduct(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
@@ -290,9 +296,10 @@ public class ProductServlet extends HttpServlet {
             product.setName(name);
             product.setQuantity(quantity);
             product.setPrice(price);
+            if (!ValidateUtils.isPriceValid(String.valueOf(price))) errors.add("Price 1 - 1.000.000.000");
             product.setImage(image);
             if (!ValidateUtils.isImageValid(image)) {
-                errors.add("Image not null or illegal");
+                errors.add("Incorrect image format");
             }
             product.setDescription(description);
             product.setIdcategory(idcategory);
